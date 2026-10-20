@@ -47,7 +47,7 @@ Hidráulica, otras, bombeo y exportación se calibran por día (`herramientas/ca
 - Gas y CO2 de cada día: valores de referencia aproximados.
 - Centrales: [powerplantmatching](https://github.com/PyPSA/powerplantmatching) de PyPSA (CC BY 4.0), que cruza ENTSO-E, OpenStreetMap, GEM, JRC y otros registros. Se convierte con `herramientas/generar_centrales.py`.
 - Producción en directo: API pública REData de Red Eléctrica (`apidatos.ree.es`), consultada desde el navegador. Si no hay dato horario se usa la media del día anterior. REE no publica en abierto la producción de cada central en tiempo real, así que la cifra por central es una estimación.
-- Mapa base: © OpenStreetMap, teselas de CARTO.
+- Mapa base: teselas de © OpenStreetMap contributors.
 
 Limitaciones: solo España (sin Portugal ni interconexiones), sin ofertas complejas y con datos horarios hasta septiembre de 2025 (desde octubre de 2025 el diario es cuartohorario).
 
