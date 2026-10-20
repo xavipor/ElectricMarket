@@ -198,11 +198,11 @@ class _Mapa extends StatelessWidget {
       ),
       children: [
         TileLayer(
-          urlTemplate:
-              'https://{s}.basemaps.cartocdn.com/${oscuro ? 'dark_all' : 'light_all'}/{z}/{x}/{y}{r}.png',
-          subdomains: const ['a', 'b', 'c', 'd'],
-          retinaMode: RetinaMode.isHighDensity(context),
+          // Teselas estándar de OpenStreetMap (sin clave). Se apagan los colores
+          // para que destaquen los puntos de las centrales.
+          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
           userAgentPackageName: 'io.github.xavipor.mercado_electrico',
+          tileBuilder: oscuro ? darkModeTileBuilder : _teselaSuave,
         ),
         CircleLayer(
           circles: [
@@ -228,12 +228,23 @@ class _Mapa extends StatelessWidget {
           ],
         ),
         const SimpleAttributionWidget(
-          source: Text('OpenStreetMap · CARTO · powerplantmatching'),
+          source: Text('OpenStreetMap contributors · powerplantmatching'),
         ),
       ],
     );
   }
 }
+
+/// Tesela casi en gris y algo más clara (70 % gris, 30 % color original).
+Widget _teselaSuave(BuildContext context, Widget tesela, TileImage _) => ColorFiltered(
+  colorFilter: const ColorFilter.matrix([
+    0.51, 0.50, 0.05, 0, 30, //
+    0.15, 0.80, 0.05, 0, 30, //
+    0.15, 0.50, 0.35, 0, 30, //
+    0, 0, 0, 1, 0,
+  ]),
+  child: tesela,
+);
 
 class _Panel extends StatelessWidget {
   const _Panel({
