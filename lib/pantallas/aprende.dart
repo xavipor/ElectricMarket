@@ -18,6 +18,7 @@ const conceptos = [
       'Cada día, antes de las 12:00, generadores y compradores envían a OMIE sus ofertas para cada periodo del día siguiente: cuántos MWh y a qué precio.',
       'OMIE ordena las ventas de más barata a más cara (el "orden de mérito") y las compras de más cara a más barata. Donde se cruzan las dos curvas sale un precio único para ese periodo.',
       'Todas las centrales casadas cobran ese precio, aunque hayan ofertado a 0 €, y todos los compradores pagan lo mismo. No es "pago según oferta".',
+      'La casación no es solo española: el algoritmo europeo EUPHEMIA (acoplamiento SDAC) cruza a la vez las ofertas de toda Europa. Si la interconexión con Francia se satura, cosa habitual, España y Francia acaban con precios distintos; con Portugal el precio coincide casi siempre.',
     ],
     dia: 4, hora: 20, accion: 'Ver una hora de invierno',
   ),
