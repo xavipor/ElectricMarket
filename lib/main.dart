@@ -5,7 +5,28 @@ import 'pantallas/aprende.dart';
 import 'pantallas/datos_pantalla.dart';
 import 'pantallas/simulador.dart';
 
-void main() => runApp(const AppMercado());
+void main() {
+  // Flutter reescribe la URL (#/) al arrancar, así que el enlace se lee antes.
+  _enlace = _leerEnlace(Uri.base);
+  runApp(const AppMercado());
+}
+
+/// Enlaces directos: ?pestana=1&dia=5&hora=15, o con ancla #dia5-hora15,
+/// #aprende o #datos (para alojamientos que no pasan la query).
+Map<String, String> _enlace = const {};
+
+Map<String, String> _leerEnlace(Uri uri) {
+  final p = Map<String, String>.of(uri.queryParameters);
+  final ancla = uri.fragment.replaceFirst('/', '');
+  final m = RegExp(r'dia(\d+)(?:-hora(\d+))?').firstMatch(ancla);
+  if (m != null) {
+    p['dia'] = m.group(1)!;
+    if (m.group(2) != null) p['hora'] = m.group(2)!;
+  }
+  if (ancla == 'aprende') p['pestana'] = '1';
+  if (ancla == 'datos') p['pestana'] = '2';
+  return p;
+}
 
 class AppMercado extends StatelessWidget {
   const AppMercado({super.key});
@@ -38,22 +59,8 @@ class _InicioState extends State<Inicio> {
   late final Future<DatosMercado> _datos = DatosMercado.cargar();
   EstadoSimulador? _estado;
 
-  // Enlaces directos: ?pestana=1&dia=5&hora=15, o con ancla #dia5-hora15,
-  // #aprende o #datos (para alojamientos que no pasan la query).
-  late final _parametros = _leerEnlace();
+  final _parametros = _enlace;
 
-  static Map<String, String> _leerEnlace() {
-    final p = Map<String, String>.of(Uri.base.queryParameters);
-    final ancla = Uri.base.fragment;
-    final m = RegExp(r'dia(\d+)(?:-hora(\d+))?').firstMatch(ancla);
-    if (m != null) {
-      p['dia'] = m.group(1)!;
-      if (m.group(2) != null) p['hora'] = m.group(2)!;
-    }
-    if (ancla == 'aprende') p['pestana'] = '1';
-    if (ancla == 'datos') p['pestana'] = '2';
-    return p;
-  }
   late int _pestana = (int.tryParse(_parametros['pestana'] ?? '') ?? 0).clamp(0, 2);
 
   static const _destinos = [
