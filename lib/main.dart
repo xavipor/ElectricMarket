@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'modelo/datos.dart';
 import 'pantallas/aprende.dart';
 import 'pantallas/datos_pantalla.dart';
+import 'pantallas/mapa.dart';
 import 'pantallas/simulador.dart';
 
 void main() {
@@ -12,7 +13,7 @@ void main() {
 }
 
 /// Enlaces directos: ?pestana=1&dia=5&hora=15, o con ancla #dia5-hora15,
-/// #aprende o #datos (para alojamientos que no pasan la query).
+/// #aprende, #datos o #mapa (para alojamientos que no pasan la query).
 Map<String, String> _enlace = const {};
 
 Map<String, String> _leerEnlace(Uri uri) {
@@ -25,6 +26,7 @@ Map<String, String> _leerEnlace(Uri uri) {
   }
   if (ancla == 'aprende') p['pestana'] = '1';
   if (ancla == 'datos') p['pestana'] = '2';
+  if (ancla == 'mapa') p['pestana'] = '3';
   return p;
 }
 
@@ -58,15 +60,17 @@ class Inicio extends StatefulWidget {
 class _InicioState extends State<Inicio> {
   late final Future<DatosMercado> _datos = DatosMercado.cargar();
   EstadoSimulador? _estado;
+  bool _mapaAbierto = false;
 
   final _parametros = _enlace;
 
-  late int _pestana = (int.tryParse(_parametros['pestana'] ?? '') ?? 0).clamp(0, 2);
+  late int _pestana = (int.tryParse(_parametros['pestana'] ?? '') ?? 0).clamp(0, 3);
 
   static const _destinos = [
     (Icons.tune, 'Simulador'),
     (Icons.school_outlined, 'Aprende'),
     (Icons.bar_chart, 'Datos'),
+    (Icons.map_outlined, 'Mapa'),
   ];
 
   @override
@@ -93,6 +97,9 @@ class _InicioState extends State<Inicio> {
             setState(() => _pestana = 0);
           }),
           PantallaDatos(datos: snap.data!),
+          // El mapa se crea al abrirlo por primera vez: así no se consulta a REE
+          // ni se descargan teselas si nadie entra en la pestaña.
+          if (_mapaAbierto |= _pestana == 3) const PantallaMapa() else const SizedBox(),
         ];
 
         return LayoutBuilder(builder: (context, c) {
