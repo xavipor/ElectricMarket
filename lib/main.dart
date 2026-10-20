@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'modelo/datos.dart';
 import 'pantallas/aprende.dart';
 import 'pantallas/datos_pantalla.dart';
+import 'pantallas/factura.dart';
 import 'pantallas/simulador.dart';
 
 void main() {
@@ -12,7 +13,7 @@ void main() {
 }
 
 /// Enlaces directos: ?pestana=1&dia=5&hora=15, o con ancla #dia5-hora15,
-/// #aprende o #datos (para alojamientos que no pasan la query).
+/// #aprende, #entrevista, #datos o #factura (para alojamientos que no pasan la query).
 Map<String, String> _enlace = const {};
 
 Map<String, String> _leerEnlace(Uri uri) {
@@ -25,6 +26,11 @@ Map<String, String> _leerEnlace(Uri uri) {
   }
   if (ancla == 'aprende') p['pestana'] = '1';
   if (ancla == 'datos') p['pestana'] = '2';
+  if (ancla == 'factura') p['pestana'] = '3';
+  if (ancla == 'entrevista') {
+    p['pestana'] = '1';
+    p['vista'] = 'entrevista';
+  }
   return p;
 }
 
@@ -61,12 +67,13 @@ class _InicioState extends State<Inicio> {
 
   final _parametros = _enlace;
 
-  late int _pestana = (int.tryParse(_parametros['pestana'] ?? '') ?? 0).clamp(0, 2);
+  late int _pestana = (int.tryParse(_parametros['pestana'] ?? '') ?? 0).clamp(0, 3);
 
   static const _destinos = [
     (Icons.tune, 'Simulador'),
     (Icons.school_outlined, 'Aprende'),
     (Icons.bar_chart, 'Datos'),
+    (Icons.receipt_long, 'Factura'),
   ];
 
   @override
@@ -88,11 +95,14 @@ class _InicioState extends State<Inicio> {
         );
         final paginas = [
           PantallaSimulador(estado: estado),
-          PantallaAprende(abrirSimulador: (dia, hora) {
+          PantallaAprende(
+              entrevista: _parametros['vista'] == 'entrevista',
+              abrirSimulador: (dia, hora) {
             estado.elegirDia(dia, hora: hora);
             setState(() => _pestana = 0);
           }),
           PantallaDatos(datos: snap.data!),
+          const PantallaFactura(),
         ];
 
         return LayoutBuilder(builder: (context, c) {

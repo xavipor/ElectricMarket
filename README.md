@@ -6,11 +6,12 @@ App web en Flutter que explica cómo se fija el precio de la electricidad en Esp
 
 ## Qué tiene
 
-- **Simulador.** Curva de oferta escalonada por tecnología, curva de demanda y punto de casación. Precio real de OMIE frente al modelo y frente a tu escenario, tecnología marginal, margen de cada tecnología y precio capturado por la solar y la eólica.
-- **Aprende.** Once conceptos (subasta marginalista, OMIE y REE, por qué las renovables ofertan a 0 €, por qué no se vende todo a 0 €, gas, excepción ibérica, precios negativos, canibalización, intradiario, futuros y PPAs). Cada uno abre el simulador en el día y la hora que lo ilustran.
+- **Simulador.** Curva de oferta escalonada por tecnología, curva de demanda y punto de casación. Precio real de OMIE frente al modelo y frente a tu escenario, tecnología marginal, margen de cada tecnología y precio capturado por la solar y la eólica. Se pueden añadir baterías y ver cómo aplanan la curva de pato.
+- **Aprende.** Trece conceptos (subasta marginalista y acoplamiento europeo, OMIE y REE, por qué las renovables ofertan a 0 €, por qué no se vende todo a 0 €, gas, excepción ibérica, precios negativos, canibalización, intradiario, servicios de ajuste y el apagón, baterías, futuros y PPAs). Cada uno abre el simulador en el día y la hora que lo ilustran. El **modo entrevista** plantea nueve preguntas típicas con su respuesta corta.
 - **Datos.** Precio medio y horas a 0 € o menos de cada año entre 2015 y 2025.
+- **Factura.** Del precio de OMIE a la factura anual de un hogar con tarifa 2.0TD: energía, servicios de ajuste, margen, peajes y cargos de 2026, impuesto eléctrico, contador e IVA.
 
-Enlaces directos: `?dia=6&hora=21` (o `#dia6-hora21`), `#aprende`, `#datos`.
+Enlaces directos: `?dia=6&hora=21` (o `#dia6-hora21`), `#aprende`, `#entrevista`, `#datos`, `#factura`.
 
 ## Los siete días
 
@@ -34,7 +35,9 @@ Cada hora se construye una curva de oferta con:
 - **Hidráulica de embalse:** por coste de oportunidad, en cuatro escalones alrededor del coste de un ciclo de referencia.
 - **Ciclos combinados:** seis bloques con rendimientos del 46 % al 58 %; coste = gas / rendimiento + CO2 × 0,202 / rendimiento + 3 €.
 
-La demanda es la previsión real del día anterior (inelástica) más un bloque flexible de bombeo y exportación. El precio es el primer escalón en que la oferta acumulada cubre la demanda dispuesta a pagar más. El motor está en `lib/modelo/mercado.dart` y tiene tests en `test/mercado_test.dart`.
+La demanda es la previsión real del día anterior (inelástica) más un bloque flexible de bombeo y exportación.
+
+**Baterías:** con previsión perfecta de los precios sin baterías, cargan en las horas más baratas y descargan en las más caras (rendimiento del 85 %), con tanta potencia como permita que el ciclo siga siendo rentable. No se sigue el orden de las horas dentro del día. El precio es el primer escalón en que la oferta acumulada cubre la demanda dispuesta a pagar más. El motor está en `lib/modelo/mercado.dart` y tiene tests en `test/mercado_test.dart`.
 
 Hidráulica, otras, bombeo y exportación se calibran por día (`herramientas/calibrar.py`) para que el modelo se parezca al precio real. El error medio va de 0,7 €/MWh (abril de 2024) a 107 €/MWh (récord de marzo de 2022, cuando las ofertas reales quedaron muy por encima del coste del gas).
 
@@ -44,6 +47,7 @@ Hidráulica, otras, bombeo y exportación se calibran por día (`herramientas/ca
 - Demanda, solar y eólica: previsiones D-1 de ENTSO-E Transparency.
 - Unidos en [cesar-tatto/mibel-dayahead-dataset](https://github.com/cesar-tatto/mibel-dayahead-dataset) (MIT).
 - Gas y CO2 de cada día: valores de referencia aproximados.
+- Peajes (Resolución CNMC de 18-dic-2025) y cargos (Orden TED/1524/2025) de 2026, publicados por el [MITECO](https://www.miteco.gob.es/ca/energia/energia-electrica/electricidad/peajes.html). Servicios de ajuste: 3.812 M€ en 2025 según REE, unos 15 €/MWh.
 
 Limitaciones: solo España (sin Portugal ni interconexiones), sin ofertas complejas y con datos horarios hasta septiembre de 2025 (desde octubre de 2025 el diario es cuartohorario).
 

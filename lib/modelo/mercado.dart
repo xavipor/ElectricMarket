@@ -10,7 +10,8 @@ enum Tecnologia {
   otras('Cogeneración y otras', Color(0xFF8D9A6B)),
   hidraulica('Hidráulica', Color(0xFF2F6FDE)),
   carbon('Carbón', Color(0xFF5B4B3A)),
-  ciclos('Ciclos combinados (gas)', Color(0xFFE4572E));
+  ciclos('Ciclos combinados (gas)', Color(0xFFE4572E)),
+  baterias('Baterías', Color(0xFFD81B60));
 
   const Tecnologia(this.nombre, this.color);
   final String nombre;
@@ -88,6 +89,8 @@ class Escenario {
     this.factorDemanda = 1,
     this.factorSolar = 1,
     this.factorEolica = 1,
+    this.bateriaMw = 0,
+    this.bateriaHoras = 4,
   });
 
   factory Escenario.fromJson(Map<String, dynamic> j) {
@@ -138,6 +141,9 @@ class Escenario {
   /// Multiplicadores que mueve el usuario sobre los datos reales.
   final double factorDemanda, factorSolar, factorEolica;
 
+  /// Baterías que añade el usuario: potencia (MW) y horas a plena potencia.
+  final double bateriaMw, bateriaHoras;
+
   Escenario copyWith({
     double? gas,
     double? co2,
@@ -145,6 +151,8 @@ class Escenario {
     double? factorDemanda,
     double? factorSolar,
     double? factorEolica,
+    double? bateriaMw,
+    double? bateriaHoras,
     double? Function()? topeGas,
   }) =>
       Escenario(
@@ -167,6 +175,8 @@ class Escenario {
         factorDemanda: factorDemanda ?? this.factorDemanda,
         factorSolar: factorSolar ?? this.factorSolar,
         factorEolica: factorEolica ?? this.factorEolica,
+        bateriaMw: bateriaMw ?? this.bateriaMw,
+        bateriaHoras: bateriaHoras ?? this.bateriaHoras,
       );
 
   /// Gas con el que ofertan los ciclos (topado si hay excepción ibérica).
@@ -182,8 +192,10 @@ const rendimientosCiclos = [0.58, 0.56, 0.54, 0.52, 0.50, 0.46];
 double costeCiclo(double gas, double co2, double rendimiento) =>
     gas / rendimiento + co2 * 0.202 / rendimiento + 3.0;
 
-/// Construye las curvas de oferta y demanda de una hora.
-(List<Oferta>, List<Puja>) construirCurvas(Hora h, Escenario e) {
+/// Construye las curvas de oferta y demanda de una hora. Las baterías
+/// compran [cargaMw] o venden [descargaMw] como precio-aceptantes.
+(List<Oferta>, List<Puja>) construirCurvas(Hora h, Escenario e,
+    {double cargaMw = 0, double descargaMw = 0}) {
   final ofertas = <Oferta>[];
   final referencia = costeCiclo(e.gasOferta, e.co2, 0.54);
 
@@ -210,12 +222,14 @@ double costeCiclo(double gas, double co2, double rendimiento) =>
     ofertas.add(Oferta(Tecnologia.ciclos, e.ciclos / rendimientosCiclos.length,
         costeCiclo(e.gasOferta, e.co2, r), costeCiclo(e.gas, e.co2, r)));
   }
+  if (descargaMw > 0) ofertas.add(Oferta(Tecnologia.baterias, descargaMw, 0, 0));
   ofertas.sort((a, b) => a.precio.compareTo(b.precio));
 
   final pujas = [
     Puja('Demanda nacional', h.demandaMw * e.factorDemanda, 4000),
     Puja('Bombeo y exportación', e.exportacion * 0.5, e.bExp),
     Puja('Bombeo y exportación', e.exportacion * 0.5, e.bExp2),
+    if (cargaMw > 0) Puja('Carga de baterías', cargaMw, 4000),
   ];
   return (ofertas, pujas);
 }
@@ -338,7 +352,67 @@ Casacion casar(List<Oferta> ofertas, List<Puja> pujas) {
 }
 
 /// Atajo: construye las curvas de una hora y las casa.
-Casacion simularHora(Hora h, Escenario e) {
-  final (o, p) = construirCurvas(h, e);
+Casacion simularHora(Hora h, Escenario e,
+    {double cargaMw = 0, double descargaMw = 0}) {
+  final (o, p) = construirCurvas(h, e, cargaMw: cargaMw, descargaMw: descargaMw);
   return casar(o, p);
+}
+
+/// Rendimiento de ida y vuelta de una batería de litio.
+const rendimientoBateria = 0.85;
+
+/// Un día simulado completo, con lo que cargan y descargan las baterías.
+class DiaSimulado {
+  DiaSimulado(this.casaciones, this.carga, this.descarga);
+  final List<Casacion> casaciones;
+
+  /// MW que compran (carga) o venden (descarga) las baterías en cada hora.
+  final List<double> carga, descarga;
+
+  /// Ingresos por vender menos coste de comprar, en el día (€).
+  double get margenBaterias {
+    var m = 0.0;
+    for (var i = 0; i < casaciones.length; i++) {
+      m += (descarga[i] - carga[i]) * casaciones[i].precio;
+    }
+    return m;
+  }
+}
+
+/// Simula las horas de un día. Sin baterías, cada hora es independiente.
+/// Con baterías, se decide primero cuándo cargar y descargar mirando los
+/// precios sin baterías (con previsión perfecta): cargan en las horas más
+/// baratas y descargan en las más caras, con tanta potencia como permita
+/// que el diferencial siga compensando las pérdidas. Simplificación: no se sigue el orden de las horas dentro del día.
+DiaSimulado simularDia(List<Hora> horas, Escenario e) {
+  final carga = List<double>.filled(horas.length, 0);
+  final descarga = List<double>.filled(horas.length, 0);
+  if (e.bateriaMw > 0) {
+    final precios = [for (final h in horas) simularHora(h, e).precio];
+    final orden = List<int>.generate(horas.length, (i) => i)
+      ..sort((a, b) => precios[a].compareTo(precios[b]));
+    final n = math.min(e.bateriaHoras.round(), horas.length ~/ 2);
+    for (var k = 0; k < n; k++) {
+      final barata = orden[k], cara = orden[orden.length - 1 - k];
+      // Como en un mercado competitivo, se usa toda la potencia que mantenga
+      // rentable el ciclo: cargar sube el precio barato y descargar baja el
+      // caro, así que con muchas baterías el diferencial se cierra.
+      for (var f = 10; f > 0; f--) {
+        final q = e.bateriaMw * f / 10;
+        final pb = simularHora(horas[barata], e, cargaMw: q).precio;
+        final pc = simularHora(horas[cara], e,
+                descargaMw: q * rendimientoBateria)
+            .precio;
+        if (pc * rendimientoBateria > pb + 1) {
+          carga[barata] = q;
+          descarga[cara] = q * rendimientoBateria;
+          break;
+        }
+      }
+    }
+  }
+  return DiaSimulado([
+    for (var i = 0; i < horas.length; i++)
+      simularHora(horas[i], e, cargaMw: carga[i], descargaMw: descarga[i])
+  ], carga, descarga);
 }
