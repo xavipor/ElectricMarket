@@ -56,7 +56,7 @@ flutter run -d chrome
 flutter build web --release --no-web-resources-cdn
 ```
 
-Cada push a `main` pasa los tests, compila la web y la publica en GitHub Pages (`.github/workflows/pages.yml`).
+Cada pull request pasa los tests y compila la web; cada push a `main` además la publica en GitHub Pages (`.github/workflows/pages.yml`).
 
 Para regenerar los datos: `python3 herramientas/calibrar.py ES.csv` y `python3 herramientas/generar_datos.py ES.csv assets/`, con `ES.csv` del repositorio de datos citado arriba.
 
