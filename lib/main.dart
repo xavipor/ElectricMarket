@@ -6,13 +6,28 @@ import 'pantallas/datos_pantalla.dart';
 import 'pantallas/mapa.dart';
 import 'pantallas/simulador.dart';
 
-// Dirección con la que se abrió la app. Se guarda antes de runApp porque al
-// arrancar Flutter reescribe el ancla (#mapa pasa a #/) y se perdería.
-late final Uri _enlaceInicial;
-
 void main() {
-  _enlaceInicial = Uri.base;
+  // Flutter reescribe la URL (#/) al arrancar, así que el enlace se lee antes.
+  _enlace = _leerEnlace(Uri.base);
   runApp(const AppMercado());
+}
+
+/// Enlaces directos: ?pestana=1&dia=5&hora=15, o con ancla #dia5-hora15,
+/// #aprende, #datos o #mapa (para alojamientos que no pasan la query).
+Map<String, String> _enlace = const {};
+
+Map<String, String> _leerEnlace(Uri uri) {
+  final p = Map<String, String>.of(uri.queryParameters);
+  final ancla = uri.fragment.replaceFirst('/', '');
+  final m = RegExp(r'dia(\d+)(?:-hora(\d+))?').firstMatch(ancla);
+  if (m != null) {
+    p['dia'] = m.group(1)!;
+    if (m.group(2) != null) p['hora'] = m.group(2)!;
+  }
+  if (ancla == 'aprende') p['pestana'] = '1';
+  if (ancla == 'datos') p['pestana'] = '2';
+  if (ancla == 'mapa') p['pestana'] = '3';
+  return p;
 }
 
 class AppMercado extends StatelessWidget {
@@ -47,23 +62,8 @@ class _InicioState extends State<Inicio> {
   EstadoSimulador? _estado;
   bool _mapaAbierto = false;
 
-  // Enlaces directos: ?pestana=1&dia=5&hora=15, o con ancla #dia5-hora15,
-  // #aprende, #datos o #mapa (para alojamientos que no pasan la query).
-  late final _parametros = _leerEnlace();
+  final _parametros = _enlace;
 
-  static Map<String, String> _leerEnlace() {
-    final p = Map<String, String>.of(_enlaceInicial.queryParameters);
-    final ancla = _enlaceInicial.fragment;
-    final m = RegExp(r'dia(\d+)(?:-hora(\d+))?').firstMatch(ancla);
-    if (m != null) {
-      p['dia'] = m.group(1)!;
-      if (m.group(2) != null) p['hora'] = m.group(2)!;
-    }
-    if (ancla == 'aprende') p['pestana'] = '1';
-    if (ancla == 'datos') p['pestana'] = '2';
-    if (ancla == 'mapa') p['pestana'] = '3';
-    return p;
-  }
   late int _pestana = (int.tryParse(_parametros['pestana'] ?? '') ?? 0).clamp(0, 3);
 
   static const _destinos = [
