@@ -101,6 +101,26 @@ const conceptos = [
     ],
   ),
   Concepto(
+    'Servicios de ajuste y el apagón',
+    'El precio de OMIE no es el coste real: REE paga aparte por hacer viable el sistema.',
+    [
+      'Restricciones técnicas: si una zona no tiene suficiente generación síncrona para controlar la tensión, REE obliga a arrancar centrales (casi siempre ciclos combinados) que cobran su oferta, no el precio marginal.',
+      'Reservas de balance: la secundaria (aFRR) responde en segundos y la terciaria (mFRR) en minutos para mantener los 50 Hz. Quien se desvía de su programa paga el coste de corregirlo.',
+      'El 28 de abril de 2025 toda la península se quedó sin luz hacia las 12:33. El informe de ENTSO-E (marzo de 2026) lo atribuye a oscilaciones, control de tensión insuficiente y desconexiones en cascada por sobretensión. Las plantas con inversores operaban a factor de potencia fijo y no ayudaban a controlar la tensión.',
+      'Desde entonces REE aplica una "operación reforzada" con más ciclos acoplados. Los servicios de ajuste costaron 3.812 millones en 2025, un 43 % más que en 2024. Mensaje para entrevista: el problema fue el control de tensión, no las renovables en sí.',
+    ],
+  ),
+  Concepto(
+    'Baterías y bombeo',
+    'Compran cuando sobra energía y venden en la punta: aplanan la curva de pato.',
+    [
+      'Una batería carga en las horas baratas (como demanda extra que sostiene el precio) y descarga en las caras (como oferta que desplaza al gas). Gana la diferencia menos las pérdidas, en torno a un 15 %.',
+      'Cuanta más solar, más diferencial y más negocio. Pero cada batería que entra estrecha ese diferencial: el almacenamiento también se canibaliza a sí mismo.',
+      'Sube el control "Baterías" del simulador en el 16 de junio de 2025: el mediodía deja de estar a 0 €, la punta de la noche baja y el precio capturado por la solar se acerca a la media.',
+    ],
+    dia: 6, hora: 13, accion: 'Probar con la curva de pato',
+  ),
+  Concepto(
     'Futuros y PPAs',
     'A plazo se cubre el riesgo de un precio diario muy volátil.',
     [
@@ -120,15 +140,101 @@ const conceptos = [
   ),
 ];
 
-class PantallaAprende extends StatelessWidget {
-  const PantallaAprende({super.key, required this.abrirSimulador});
+/// Una pregunta típica de entrevista con su respuesta corta.
+class Pregunta {
+  const Pregunta(this.pregunta, this.respuesta, {this.dia, this.hora, this.accion});
+  final String pregunta, respuesta;
+  final int? dia, hora;
+  final String? accion;
+}
+
+const preguntas = [
+  Pregunta(
+    '¿Por qué la luz depende del gas si el gas genera solo un 14 % de la electricidad?',
+    'Porque el precio lo fija la última tecnología necesaria, y el gas (o la hidráulica, que se '
+        'valora frente al gas) es marginal en buena parte de las horas, sobre todo de noche y en '
+        'invierno. Su peso en el precio es mucho mayor que su peso en la energía.',
+    dia: 4, hora: 20, accion: 'Ver una noche de invierno',
+  ),
+  Pregunta(
+    '¿Por qué una eólica oferta a 0 €?',
+    'Porque su coste marginal es casi nulo y cobra el precio de casación, no su oferta. '
+        'Ofertar más alto solo le haría perder horas en las que ganaría dinero.',
+    dia: 6, hora: 21, accion: 'Ver cuánto gana a las 21:00',
+  ),
+  Pregunta(
+    '¿Quién pierde cuando el precio es 0 €?',
+    'Las renovables a mercado (sin PPA) y las nucleares; los consumidores indexados ganan. '
+        'Los servicios de ajuste, peajes y cargos se siguen pagando.',
+    dia: 3, hora: 13, accion: 'Ver un mediodía a 0 €',
+  ),
+  Pregunta(
+    '¿Qué diferencia a OMIE de REE?',
+    'OMIE gestiona el mercado (lo económico); REE opera el sistema (lo físico) y es el '
+        'transportista. Lo que OMIE casa, REE lo hace viable y lo equilibra en tiempo real.',
+  ),
+  Pregunta(
+    '¿Qué es la canibalización y cómo se mitiga?',
+    'Es la caída del precio capturado de una tecnología a medida que crece su propia '
+        'penetración. Se mitiga con almacenamiento, demanda flexible, interconexiones, '
+        'hibridación con eólica y PPAs baseload.',
+    dia: 6, hora: 13, accion: 'Probar con baterías',
+  ),
+  Pregunta(
+    '¿Funcionó la excepción ibérica?',
+    'Bajó el precio para los consumidores indexados (un 14 % de media en su primer año), '
+        'pero abarató las exportaciones a Francia y no redujo el consumo de gas.',
+    dia: 2, hora: 20, accion: 'Quitar el tope a un día de 2022',
+  ),
+  Pregunta(
+    '¿Por qué no cambiar a pay-as-bid?',
+    'Los agentes ofertarían al precio que esperan que salga y no a su coste, así que el precio '
+        'no bajaría y el despacho sería menos eficiente. La reforma europea de 2024 prefirió '
+        'reforzar los contratos a plazo (PPAs y contratos por diferencias).',
+  ),
+  Pregunta(
+    '¿Qué aprendimos del apagón del 28 de abril de 2025?',
+    'Que un sistema con mucha electrónica de potencia necesita control de tensión dinámico, '
+        'exigido y remunerado. No es un argumento contra las renovables, sino a favor de cambiar '
+        'sus requisitos técnicos.',
+  ),
+  Pregunta(
+    '¿Por qué son rentables las baterías en España?',
+    'Por el diferencial entre el mediodía solar (a menudo 0 €) y la punta de la tarde. Cargan '
+        'barato y venden caro, y al hacerlo estrechan ese mismo diferencial: cuantas más haya, '
+        'menos gana cada una. También cobran por servicios de ajuste.',
+    dia: 6, hora: 21, accion: 'Ver la punta de la tarde',
+  ),
+];
+
+class PantallaAprende extends StatefulWidget {
+  const PantallaAprende({super.key, required this.abrirSimulador, this.entrevista = false});
 
   /// Abre el simulador en un día y una hora.
   final void Function(int dia, int hora) abrirSimulador;
 
+  /// Empieza en el modo entrevista en vez de en los conceptos.
+  final bool entrevista;
+
+  @override
+  State<PantallaAprende> createState() => _PantallaAprendeState();
+}
+
+class _PantallaAprendeState extends State<PantallaAprende> {
+  late bool _entrevista = widget.entrevista;
+
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
+    final selector = SegmentedButton<bool>(
+      segments: const [
+        ButtonSegment(value: false, label: Text('Conceptos'), icon: Icon(Icons.menu_book_outlined)),
+        ButtonSegment(
+            value: true, label: Text('Modo entrevista'), icon: Icon(Icons.record_voice_over_outlined)),
+      ],
+      selected: {_entrevista},
+      onSelectionChanged: (v) => setState(() => _entrevista = v.first),
+    );
     return Center(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 820),
@@ -136,39 +242,87 @@ class PantallaAprende extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           children: [
             Text('Cómo funciona el mercado eléctrico español', style: t.headlineSmall),
-            const SizedBox(height: 8),
-            Text(
-              'Once ideas para entender de dónde sale el precio de la luz. '
-              'Las que tienen un botón se pueden ver en el simulador con datos reales.',
-              style: t.bodyMedium,
-            ),
-            const SizedBox(height: 16),
-            for (final c in conceptos)
-              Card(
-                margin: const EdgeInsets.only(bottom: 12),
-                child: ExpansionTile(
-                  shape: const Border(),
-                  title: Text(c.titulo, style: t.titleMedium),
-                  subtitle: Text(c.resumen),
-                  childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    for (final p in c.parrafos)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: Text(p, style: t.bodyMedium),
-                      ),
-                    if (c.dia != null)
-                      FilledButton.tonalIcon(
-                        onPressed: () => abrirSimulador(c.dia!, c.hora!),
-                        icon: const Icon(Icons.play_arrow),
-                        label: Text(c.accion!),
-                      ),
-                  ],
-                ),
+            const SizedBox(height: 12),
+            Align(alignment: Alignment.centerLeft, child: selector),
+            const SizedBox(height: 12),
+            if (!_entrevista) ...[
+              Text(
+                'Trece ideas para entender de dónde sale el precio de la luz. '
+                'Las que tienen un botón se pueden ver en el simulador con datos reales.',
+                style: t.bodyMedium,
               ),
+              const SizedBox(height: 16),
+              for (final c in conceptos)
+                _TarjetaDesplegable(
+                  titulo: c.titulo,
+                  resumen: c.resumen,
+                  parrafos: c.parrafos,
+                  accion: c.dia == null ? null : c.accion,
+                  alPulsar: c.dia == null ? null : () => widget.abrirSimulador(c.dia!, c.hora!),
+                ),
+            ] else ...[
+              Text(
+                'Preguntas que salen en entrevistas de analista o trader de energía. '
+                'Intenta responder en voz alta antes de abrir la respuesta: cada una cabe en tres frases.',
+                style: t.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              for (var i = 0; i < preguntas.length; i++)
+                _TarjetaDesplegable(
+                  titulo: '${i + 1}. ${preguntas[i].pregunta}',
+                  resumen: 'Ver la respuesta',
+                  parrafos: [preguntas[i].respuesta],
+                  accion: preguntas[i].dia == null ? null : preguntas[i].accion,
+                  alPulsar: preguntas[i].dia == null
+                      ? null
+                      : () => widget.abrirSimulador(preguntas[i].dia!, preguntas[i].hora!),
+                ),
+            ],
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _TarjetaDesplegable extends StatelessWidget {
+  const _TarjetaDesplegable({
+    required this.titulo,
+    required this.resumen,
+    required this.parrafos,
+    this.accion,
+    this.alPulsar,
+  });
+
+  final String titulo, resumen;
+  final List<String> parrafos;
+  final String? accion;
+  final VoidCallback? alPulsar;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Theme.of(context).textTheme;
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      child: ExpansionTile(
+        shape: const Border(),
+        title: Text(titulo, style: t.titleMedium),
+        subtitle: Text(resumen),
+        childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        expandedCrossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (final p in parrafos)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(p, style: t.bodyMedium),
+            ),
+          if (alPulsar != null)
+            FilledButton.tonalIcon(
+              onPressed: alPulsar,
+              icon: const Icon(Icons.play_arrow),
+              label: Text(accion!),
+            ),
+        ],
       ),
     );
   }

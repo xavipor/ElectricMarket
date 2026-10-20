@@ -57,8 +57,9 @@ class PantallaSimulador extends StatelessWidget {
       builder: (context, _) {
         final dia = estado.dia;
         final e = estado.escenario;
-        final casaciones = [for (final h in dia.horas) simularHora(h, e)];
-        final base = [for (final h in dia.horas) simularHora(h, dia.escenario)];
+        final simulado = simularDia(dia.horas, e);
+        final casaciones = simulado.casaciones;
+        final base = simularDia(dia.horas, dia.escenario).casaciones;
         final c = casaciones[estado.hora];
         final horaDatos = dia.horas[estado.hora];
 
@@ -107,7 +108,7 @@ class PantallaSimulador extends StatelessWidget {
         );
         final resultado = _Resultado(
             dia: dia, casacion: c, horaDatos: horaDatos, escenario: e,
-            casaciones: casaciones);
+            simulado: simulado);
 
         return LayoutBuilder(builder: (context, lc) {
           final ancho = lc.maxWidth >= 1000;
@@ -249,6 +250,19 @@ class _Controles extends StatelessWidget {
           texto: gw(e.nuclear),
           alCambiar: (v) => estado.cambiar(e.copyWith(nuclear: v)),
         ),
+        _Deslizador(
+          etiqueta: 'Baterías',
+          valor: e.bateriaMw, min: 0, max: 20000, divisiones: 40,
+          texto: gw(e.bateriaMw),
+          alCambiar: (v) => estado.cambiar(e.copyWith(bateriaMw: v)),
+        ),
+        if (e.bateriaMw > 0)
+          _Deslizador(
+            etiqueta: 'Duración de las baterías',
+            valor: e.bateriaHoras, min: 1, max: 8, divisiones: 7,
+            texto: '${e.bateriaHoras.round()} h',
+            alCambiar: (v) => estado.cambiar(e.copyWith(bateriaHoras: v)),
+          ),
         SwitchListTile(
           contentPadding: EdgeInsets.zero,
           title: const Text('Tope al gas (excepción ibérica)'),
@@ -275,14 +289,14 @@ class _Resultado extends StatelessWidget {
     required this.casacion,
     required this.horaDatos,
     required this.escenario,
-    required this.casaciones,
+    required this.simulado,
   });
 
   final Dia dia;
   final Casacion casacion;
   final Hora horaDatos;
   final Escenario escenario;
-  final List<Casacion> casaciones;
+  final DiaSimulado simulado;
 
   @override
   Widget build(BuildContext context) {
@@ -290,6 +304,8 @@ class _Resultado extends StatelessWidget {
     final esquema = Theme.of(context).colorScheme;
     final c = casacion;
     final cuentas = c.cuentas;
+    final casaciones = simulado.casaciones;
+    final h = horaDatos.hora;
     final medio = casaciones.fold<double>(0, (s, x) => s + x.precio) / 24;
     double capturado(Tecnologia tec) {
       var mwh = 0.0, ingreso = 0.0;
@@ -310,6 +326,17 @@ class _Resultado extends StatelessWidget {
             style: t.bodySmall),
         const SizedBox(height: 12),
         Text(_explicacion(c, escenario), style: t.bodyMedium),
+        if (simulado.carga[h] > 0 || simulado.descarga[h] > 0) ...[
+          const SizedBox(height: 8),
+          Text(
+            simulado.carga[h] > 0
+                ? 'A esta hora las baterías compran ${gw(simulado.carga[h])} para cargar: '
+                    'son demanda extra y sostienen el precio de las horas baratas.'
+                : 'A esta hora las baterías venden ${gw(simulado.descarga[h])}: '
+                    'desplazan a las centrales más caras y bajan el precio de la punta.',
+            style: t.bodyMedium,
+          ),
+        ],
         if (escenario.topeGas != null && escenario.gas > escenario.topeGas!) ...[
           const SizedBox(height: 8),
           Text(
@@ -356,10 +383,17 @@ class _Resultado extends StatelessWidget {
         _fila(context, 'Precio medio del escenario', '${euros(medio)} €/MWh'),
         _fila(context, 'Precio capturado por la solar', '${euros(capturado(Tecnologia.solar))} €/MWh'),
         _fila(context, 'Precio capturado por la eólica', '${euros(capturado(Tecnologia.eolica))} €/MWh'),
+        if (escenario.bateriaMw > 0) ...[
+          _fila(context, 'Horas de carga y descarga de las baterías',
+              '${simulado.carga.where((x) => x > 0).length} y '
+                  '${simulado.descarga.where((x) => x > 0).length}'),
+          _fila(context, 'Margen de las baterías en el día',
+              '${euros(simulado.margenBaterias / 1000, decimales: 0)} mil €'),
+        ],
         const SizedBox(height: 4),
         Text(
           'Si la solar captura menos que la media es porque produce justo cuando hunde el '
-          'precio: es la canibalización.',
+          'precio: es la canibalización. Añade baterías y mira cómo se acerca a la media.',
           style: t.bodySmall!.copyWith(color: esquema.onSurfaceVariant),
         ),
       ]),
