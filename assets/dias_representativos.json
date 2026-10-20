@@ -1,0 +1,1518 @@
+{
+ "fuente": "Precios: OMIE (marginalpdbc). Demanda, solar y eólica terrestre: previsiones del día anterior de ENTSO-E Transparency. Recopilado en github.com/cesar-tatto/mibel-dayahead-dataset (MIT).",
+ "notas": [
+  "Horas en hora local española; los días de cambio de hora están normalizados a 24 horas.",
+  "Demanda, solar y eólica son previsiones D-1 (lo que conocían los agentes al ofertar), no producción real.",
+  "Gas (€/MWh térmico) y CO2 (€/t) son valores aproximados de referencia, no cotizaciones exactas del día.",
+  "Los parámetros de oferta (hidráulica, otras, exportación) están calibrados para que el modelo simplificado se parezca al precio real; no son datos observados."
+ ],
+ "dias": [
+  {
+   "fecha": "2019-01-16",
+   "titulo": "Invierno normal antes de la crisis",
+   "descripcion": "Miércoles de enero de 2019. Gas barato (unos 24 €/MWh) y todavía carbón en el sistema: el precio apenas se mueve entre 61 y 73 €/MWh porque ciclos y carbón marcan precio casi todas las horas.",
+   "precioMedioReal": 69.43,
+   "errorModeloRmse": 6.7,
+   "parametros": {
+    "gas": 24,
+    "co2": 22,
+    "nuclear": 7100,
+    "ciclos": 20000,
+    "hidro": 3000,
+    "fHidro": 1.3,
+    "wHidro": 0.5,
+    "otras": 2000,
+    "export": 8000,
+    "bExp": 60,
+    "neg": 0.0,
+    "carbon": 5000,
+    "coalCost": 28
+   },
+   "horas": [
+    {
+     "hora": 0,
+     "precioReal": 70.16,
+     "demandaMw": 29369,
+     "solarMw": 20,
+     "eolicaMw": 2450,
+     "precioModelo": 60
+    },
+    {
+     "hora": 1,
+     "precioReal": 68.4,
+     "demandaMw": 27163,
+     "solarMw": 17,
+     "eolicaMw": 2553,
+     "precioModelo": 59.89
+    },
+    {
+     "hora": 2,
+     "precioReal": 66.0,
+     "demandaMw": 25918,
+     "solarMw": 17,
+     "eolicaMw": 2649,
+     "precioModelo": 57.7
+    },
+    {
+     "hora": 3,
+     "precioReal": 63.93,
+     "demandaMw": 25430,
+     "solarMw": 16,
+     "eolicaMw": 2737,
+     "precioModelo": 57.7
+    },
+    {
+     "hora": 4,
+     "precioReal": 61.07,
+     "demandaMw": 25362,
+     "solarMw": 13,
+     "eolicaMw": 2775,
+     "precioModelo": 57.7
+    },
+    {
+     "hora": 5,
+     "precioReal": 63.93,
+     "demandaMw": 26005,
+     "solarMw": 15,
+     "eolicaMw": 2797,
+     "precioModelo": 57.7
+    },
+    {
+     "hora": 6,
+     "precioReal": 68.07,
+     "demandaMw": 28773,
+     "solarMw": 16,
+     "eolicaMw": 2809,
+     "precioModelo": 59.89
+    },
+    {
+     "hora": 7,
+     "precioReal": 70.3,
+     "demandaMw": 33774,
+     "solarMw": 22,
+     "eolicaMw": 2681,
+     "precioModelo": 61.52
+    },
+    {
+     "hora": 8,
+     "precioReal": 71.69,
+     "demandaMw": 36972,
+     "solarMw": 57,
+     "eolicaMw": 2554,
+     "precioModelo": 64.83
+    },
+    {
+     "hora": 9,
+     "precioReal": 72.47,
+     "demandaMw": 38057,
+     "solarMw": 538,
+     "eolicaMw": 2433,
+     "precioModelo": 68.76
+    },
+    {
+     "hora": 10,
+     "precioReal": 72.2,
+     "demandaMw": 38574,
+     "solarMw": 1451,
+     "eolicaMw": 2141,
+     "precioModelo": 68.76
+    },
+    {
+     "hora": 11,
+     "precioReal": 71.04,
+     "demandaMw": 38189,
+     "solarMw": 2182,
+     "eolicaMw": 1856,
+     "precioModelo": 64.83
+    },
+    {
+     "hora": 12,
+     "precioReal": 70.04,
+     "demandaMw": 37516,
+     "solarMw": 2595,
+     "eolicaMw": 1619,
+     "precioModelo": 64.83
+    },
+    {
+     "hora": 13,
+     "precioReal": 70.0,
+     "demandaMw": 37183,
+     "solarMw": 2742,
+     "eolicaMw": 1727,
+     "precioModelo": 64.83
+    },
+    {
+     "hora": 14,
+     "precioReal": 68.71,
+     "demandaMw": 35940,
+     "solarMw": 2629,
+     "eolicaMw": 1781,
+     "precioModelo": 64.83
+    },
+    {
+     "hora": 15,
+     "precioReal": 68.29,
+     "demandaMw": 35293,
+     "solarMw": 2305,
+     "eolicaMw": 1848,
+     "precioModelo": 61.52
+    },
+    {
+     "hora": 16,
+     "precioReal": 68.29,
+     "demandaMw": 35011,
+     "solarMw": 1600,
+     "eolicaMw": 1917,
+     "precioModelo": 61.52
+    },
+    {
+     "hora": 17,
+     "precioReal": 69.59,
+     "demandaMw": 35272,
+     "solarMw": 582,
+     "eolicaMw": 2010,
+     "precioModelo": 64.83
+    },
+    {
+     "hora": 18,
+     "precioReal": 72.33,
+     "demandaMw": 37354,
+     "solarMw": 101,
+     "eolicaMw": 2175,
+     "precioModelo": 68.76
+    },
+    {
+     "hora": 19,
+     "precioReal": 72.95,
+     "demandaMw": 38588,
+     "solarMw": 24,
+     "eolicaMw": 2250,
+     "precioModelo": 76.0
+    },
+    {
+     "hora": 20,
+     "precioReal": 72.2,
+     "demandaMw": 39150,
+     "solarMw": 23,
+     "eolicaMw": 2364,
+     "precioModelo": 83.23
+    },
+    {
+     "hora": 21,
+     "precioReal": 72.99,
+     "demandaMw": 38301,
+     "solarMw": 21,
+     "eolicaMw": 2558,
+     "precioModelo": 76.0
+    },
+    {
+     "hora": 22,
+     "precioReal": 71.59,
+     "demandaMw": 35298,
+     "solarMw": 24,
+     "eolicaMw": 2654,
+     "precioModelo": 64.83
+    },
+    {
+     "hora": 23,
+     "precioReal": 70.0,
+     "demandaMw": 31963,
+     "solarMw": 23,
+     "eolicaMw": 2713,
+     "precioModelo": 60
+    }
+   ]
+  },
+  {
+   "fecha": "2022-03-08",
+   "titulo": "Récord de la crisis del gas",
+   "descripcion": "El día con el precio medio más alto de la serie (545 €/MWh), dos semanas después de la invasión de Ucrania. El gas TTF cerró el 7 de marzo en torno a 227 €/MWh y arrastró a ciclos e hidráulica.",
+   "precioMedioReal": 544.98,
+   "errorModeloRmse": 107.3,
+   "parametros": {
+    "gas": 227,
+    "co2": 70,
+    "nuclear": 7100,
+    "ciclos": 22000,
+    "hidro": 3000,
+    "fHidro": 1.3,
+    "wHidro": 0.5,
+    "otras": 1000,
+    "export": 4000,
+    "bExp": 20,
+    "neg": 0.0,
+    "carbon": 2500,
+    "coalCost": 110
+   },
+   "horas": [
+    {
+     "hora": 0,
+     "precioReal": 450.95,
+     "demandaMw": 25669,
+     "solarMw": 16,
+     "eolicaMw": 9957,
+     "precioModelo": 433.61
+    },
+    {
+     "hora": 1,
+     "precioReal": 449.5,
+     "demandaMw": 24135,
+     "solarMw": 13,
+     "eolicaMw": 9784,
+     "precioModelo": 433.61
+    },
+    {
+     "hora": 2,
+     "precioReal": 449.5,
+     "demandaMw": 23170,
+     "solarMw": 11,
+     "eolicaMw": 9609,
+     "precioModelo": 418.76
+    },
+    {
+     "hora": 3,
+     "precioReal": 424.88,
+     "demandaMw": 22888,
+     "solarMw": 9,
+     "eolicaMw": 9408,
+     "precioModelo": 418.76
+    },
+    {
+     "hora": 4,
+     "precioReal": 429.89,
+     "demandaMw": 22873,
+     "solarMw": 7,
+     "eolicaMw": 9203,
+     "precioModelo": 418.76
+    },
+    {
+     "hora": 5,
+     "precioReal": 449.6,
+     "demandaMw": 23538,
+     "solarMw": 9,
+     "eolicaMw": 8994,
+     "precioModelo": 433.61
+    },
+    {
+     "hora": 6,
+     "precioReal": 550.0,
+     "demandaMw": 26173,
+     "solarMw": 8,
+     "eolicaMw": 8761,
+     "precioModelo": 433.61
+    },
+    {
+     "hora": 7,
+     "precioReal": 600.0,
+     "demandaMw": 29913,
+     "solarMw": 46,
+     "eolicaMw": 8321,
+     "precioModelo": 449.56
+    },
+    {
+     "hora": 8,
+     "precioReal": 645.0,
+     "demandaMw": 31965,
+     "solarMw": 694,
+     "eolicaMw": 7880,
+     "precioModelo": 466.73
+    },
+    {
+     "hora": 9,
+     "precioReal": 601.0,
+     "demandaMw": 32781,
+     "solarMw": 2536,
+     "eolicaMw": 7523,
+     "precioModelo": 466.73
+    },
+    {
+     "hora": 10,
+     "precioReal": 582.0,
+     "demandaMw": 33000,
+     "solarMw": 4479,
+     "eolicaMw": 7484,
+     "precioModelo": 449.56
+    },
+    {
+     "hora": 11,
+     "precioReal": 548.09,
+     "demandaMw": 32795,
+     "solarMw": 5802,
+     "eolicaMw": 7544,
+     "precioModelo": 449.56
+    },
+    {
+     "hora": 12,
+     "precioReal": 515.4,
+     "demandaMw": 32846,
+     "solarMw": 6511,
+     "eolicaMw": 7596,
+     "precioModelo": 449.56
+    },
+    {
+     "hora": 13,
+     "precioReal": 460.0,
+     "demandaMw": 32715,
+     "solarMw": 7007,
+     "eolicaMw": 7134,
+     "precioModelo": 449.56
+    },
+    {
+     "hora": 14,
+     "precioReal": 449.9,
+     "demandaMw": 32225,
+     "solarMw": 7052,
+     "eolicaMw": 6867,
+     "precioModelo": 449.56
+    },
+    {
+     "hora": 15,
+     "precioReal": 449.6,
+     "demandaMw": 31487,
+     "solarMw": 6887,
+     "eolicaMw": 6338,
+     "precioModelo": 449.56
+    },
+    {
+     "hora": 16,
+     "precioReal": 514.31,
+     "demandaMw": 31054,
+     "solarMw": 6337,
+     "eolicaMw": 5316,
+     "precioModelo": 449.56
+    },
+    {
+     "hora": 17,
+     "precioReal": 603.08,
+     "demandaMw": 30864,
+     "solarMw": 4492,
+     "eolicaMw": 4279,
+     "precioModelo": 466.73
+    },
+    {
+     "hora": 18,
+     "precioReal": 651.0,
+     "demandaMw": 30811,
+     "solarMw": 1654,
+     "eolicaMw": 3292,
+     "precioModelo": 485.28
+    },
+    {
+     "hora": 19,
+     "precioReal": 700.0,
+     "demandaMw": 33029,
+     "solarMw": 226,
+     "eolicaMw": 2933,
+     "precioModelo": 527.22
+    },
+    {
+     "hora": 20,
+     "precioReal": 654.91,
+     "demandaMw": 34378,
+     "solarMw": 60,
+     "eolicaMw": 2799,
+     "precioModelo": 527.22
+    },
+    {
+     "hora": 21,
+     "precioReal": 651.0,
+     "demandaMw": 33402,
+     "solarMw": 48,
+     "eolicaMw": 2785,
+     "precioModelo": 527.22
+    },
+    {
+     "hora": 22,
+     "precioReal": 650.0,
+     "demandaMw": 30422,
+     "solarMw": 35,
+     "eolicaMw": 2973,
+     "precioModelo": 485.28
+    },
+    {
+     "hora": 23,
+     "precioReal": 600.0,
+     "demandaMw": 27382,
+     "solarMw": 25,
+     "eolicaMw": 3183,
+     "precioModelo": 466.73
+    }
+   ]
+  },
+  {
+   "fecha": "2022-07-20",
+   "titulo": "Verano con excepción ibérica",
+   "descripcion": "Ola de calor con el tope al gas (40 €/MWh) en vigor. El precio del diario se queda en 140-155 €/MWh, pero no incluye el ajuste que pagaban los consumidores para compensar a los ciclos.",
+   "precioMedioReal": 147.54,
+   "errorModeloRmse": 34.0,
+   "parametros": {
+    "gas": 150,
+    "co2": 85,
+    "nuclear": 7100,
+    "ciclos": 22000,
+    "hidro": 3000,
+    "fHidro": 1.3,
+    "wHidro": 0.5,
+    "otras": 1000,
+    "export": 4000,
+    "bExp": 20,
+    "neg": 0.0,
+    "topeGas": 40,
+    "carbon": 1500,
+    "coalCost": 100
+   },
+   "horas": [
+    {
+     "hora": 0,
+     "precioReal": 153.93,
+     "demandaMw": 29404,
+     "solarMw": 529,
+     "eolicaMw": 5459,
+     "precioModelo": 117.34
+    },
+    {
+     "hora": 1,
+     "precioReal": 149.6,
+     "demandaMw": 27743,
+     "solarMw": 525,
+     "eolicaMw": 5007,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 2,
+     "precioReal": 143.84,
+     "demandaMw": 26402,
+     "solarMw": 516,
+     "eolicaMw": 4473,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 3,
+     "precioReal": 149.09,
+     "demandaMw": 25741,
+     "solarMw": 499,
+     "eolicaMw": 4087,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 4,
+     "precioReal": 146.22,
+     "demandaMw": 25422,
+     "solarMw": 467,
+     "eolicaMw": 3736,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 5,
+     "precioReal": 149.6,
+     "demandaMw": 25668,
+     "solarMw": 404,
+     "eolicaMw": 3564,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 6,
+     "precioReal": 149.61,
+     "demandaMw": 27430,
+     "solarMw": 328,
+     "eolicaMw": 3458,
+     "precioModelo": 117.34
+    },
+    {
+     "hora": 7,
+     "precioReal": 149.61,
+     "demandaMw": 29255,
+     "solarMw": 802,
+     "eolicaMw": 3380,
+     "precioModelo": 117.34
+    },
+    {
+     "hora": 8,
+     "precioReal": 149.6,
+     "demandaMw": 30846,
+     "solarMw": 3644,
+     "eolicaMw": 3165,
+     "precioModelo": 117.34
+    },
+    {
+     "hora": 9,
+     "precioReal": 140.72,
+     "demandaMw": 32402,
+     "solarMw": 8037,
+     "eolicaMw": 2798,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 10,
+     "precioReal": 138.44,
+     "demandaMw": 33598,
+     "solarMw": 10793,
+     "eolicaMw": 2449,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 11,
+     "precioReal": 140.52,
+     "demandaMw": 34390,
+     "solarMw": 11842,
+     "eolicaMw": 2272,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 12,
+     "precioReal": 150.0,
+     "demandaMw": 35294,
+     "solarMw": 12406,
+     "eolicaMw": 2219,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 13,
+     "precioReal": 153.58,
+     "demandaMw": 36016,
+     "solarMw": 12618,
+     "eolicaMw": 2348,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 14,
+     "precioReal": 151.29,
+     "demandaMw": 35985,
+     "solarMw": 12616,
+     "eolicaMw": 2700,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 15,
+     "precioReal": 153.29,
+     "demandaMw": 35396,
+     "solarMw": 12466,
+     "eolicaMw": 3218,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 16,
+     "precioReal": 149.61,
+     "demandaMw": 35216,
+     "solarMw": 11833,
+     "eolicaMw": 3802,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 17,
+     "precioReal": 140.42,
+     "demandaMw": 34936,
+     "solarMw": 11158,
+     "eolicaMw": 4530,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 18,
+     "precioReal": 137.47,
+     "demandaMw": 34172,
+     "solarMw": 10082,
+     "eolicaMw": 5470,
+     "precioModelo": 108.87
+    },
+    {
+     "hora": 19,
+     "precioReal": 140.42,
+     "demandaMw": 33597,
+     "solarMw": 7728,
+     "eolicaMw": 6424,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 20,
+     "precioReal": 151.11,
+     "demandaMw": 33143,
+     "solarMw": 3861,
+     "eolicaMw": 7249,
+     "precioModelo": 112.94
+    },
+    {
+     "hora": 21,
+     "precioReal": 154.35,
+     "demandaMw": 32830,
+     "solarMw": 1188,
+     "eolicaMw": 7944,
+     "precioModelo": 117.34
+    },
+    {
+     "hora": 22,
+     "precioReal": 153.58,
+     "demandaMw": 32124,
+     "solarMw": 574,
+     "eolicaMw": 8431,
+     "precioModelo": 117.34
+    },
+    {
+     "hora": 23,
+     "precioReal": 145.0,
+     "demandaMw": 30086,
+     "solarMw": 569,
+     "eolicaMw": 8507,
+     "precioModelo": 112.94
+    }
+   ]
+  },
+  {
+   "fecha": "2024-04-05",
+   "titulo": "Primavera con precio cero",
+   "descripcion": "Viernes de abril de 2024 con embalses llenos, mucho viento y sol: 21 de 24 horas a 0 € o menos y una media de 0,44 €/MWh.",
+   "precioMedioReal": 0.44,
+   "errorModeloRmse": 0.7,
+   "parametros": {
+    "gas": 27,
+    "co2": 60,
+    "nuclear": 5000,
+    "ciclos": 22000,
+    "hidro": 15000,
+    "fHidro": 0.0,
+    "wHidro": 1.5,
+    "otras": 6000,
+    "export": 4000,
+    "bExp": 20,
+    "neg": 0.0
+   },
+   "horas": [
+    {
+     "hora": 0,
+     "precioReal": 0.44,
+     "demandaMw": 24620,
+     "solarMw": 280,
+     "eolicaMw": 9732,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 1,
+     "precioReal": 0.48,
+     "demandaMw": 23169,
+     "solarMw": 198,
+     "eolicaMw": 9876,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 2,
+     "precioReal": 0.01,
+     "demandaMw": 22223,
+     "solarMw": 153,
+     "eolicaMw": 9762,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 3,
+     "precioReal": 0.0,
+     "demandaMw": 21780,
+     "solarMw": 112,
+     "eolicaMw": 9526,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 4,
+     "precioReal": 0.0,
+     "demandaMw": 21664,
+     "solarMw": 94,
+     "eolicaMw": 9238,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 5,
+     "precioReal": 0.0,
+     "demandaMw": 22361,
+     "solarMw": 75,
+     "eolicaMw": 8862,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 6,
+     "precioReal": 0.4,
+     "demandaMw": 24862,
+     "solarMw": 71,
+     "eolicaMw": 8536,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 7,
+     "precioReal": 3.25,
+     "demandaMw": 28104,
+     "solarMw": 79,
+     "eolicaMw": 8320,
+     "precioModelo": 5.0
+    },
+    {
+     "hora": 8,
+     "precioReal": 2.97,
+     "demandaMw": 29543,
+     "solarMw": 1708,
+     "eolicaMw": 8185,
+     "precioModelo": 5.0
+    },
+    {
+     "hora": 9,
+     "precioReal": 0.0,
+     "demandaMw": 29408,
+     "solarMw": 7402,
+     "eolicaMw": 7956,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 10,
+     "precioReal": 0.0,
+     "demandaMw": 28686,
+     "solarMw": 12212,
+     "eolicaMw": 7702,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 11,
+     "precioReal": 0.0,
+     "demandaMw": 27984,
+     "solarMw": 15434,
+     "eolicaMw": 7812,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 12,
+     "precioReal": 0.0,
+     "demandaMw": 27617,
+     "solarMw": 16704,
+     "eolicaMw": 8292,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 13,
+     "precioReal": 0.0,
+     "demandaMw": 27284,
+     "solarMw": 16907,
+     "eolicaMw": 8783,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 14,
+     "precioReal": -0.01,
+     "demandaMw": 26524,
+     "solarMw": 17077,
+     "eolicaMw": 9476,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 15,
+     "precioReal": -0.01,
+     "demandaMw": 25799,
+     "solarMw": 16626,
+     "eolicaMw": 10044,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 16,
+     "precioReal": 0.0,
+     "demandaMw": 25684,
+     "solarMw": 15938,
+     "eolicaMw": 10678,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 17,
+     "precioReal": 0.0,
+     "demandaMw": 26209,
+     "solarMw": 13909,
+     "eolicaMw": 11045,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 18,
+     "precioReal": 0.0,
+     "demandaMw": 26812,
+     "solarMw": 10686,
+     "eolicaMw": 11383,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 19,
+     "precioReal": 0.0,
+     "demandaMw": 27906,
+     "solarMw": 5415,
+     "eolicaMw": 11686,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 20,
+     "precioReal": 0.02,
+     "demandaMw": 29526,
+     "solarMw": 1170,
+     "eolicaMw": 12058,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 21,
+     "precioReal": 2.0,
+     "demandaMw": 30500,
+     "solarMw": 336,
+     "eolicaMw": 12363,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 22,
+     "precioReal": 1.0,
+     "demandaMw": 28141,
+     "solarMw": 260,
+     "eolicaMw": 12593,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 23,
+     "precioReal": 0.0,
+     "demandaMw": 25781,
+     "solarMw": 270,
+     "eolicaMw": 12836,
+     "precioModelo": 0.0
+    }
+   ]
+  },
+  {
+   "fecha": "2025-01-22",
+   "titulo": "Invierno de 2025",
+   "descripcion": "Miércoles de invierno con gas a unos 48 €/MWh y poco sol: el gas vuelve a marcar el precio, entre 104 y 168 €/MWh.",
+   "precioMedioReal": 134.96,
+   "errorModeloRmse": 17.3,
+   "parametros": {
+    "gas": 48,
+    "co2": 80,
+    "nuclear": 7100,
+    "ciclos": 22000,
+    "hidro": 3000,
+    "fHidro": 1.3,
+    "wHidro": 0.5,
+    "otras": 1000,
+    "export": 4000,
+    "bExp": 20,
+    "neg": 0.0
+   },
+   "horas": [
+    {
+     "hora": 0,
+     "precioReal": 123.53,
+     "demandaMw": 27080,
+     "solarMw": 23,
+     "eolicaMw": 9615,
+     "precioModelo": 121.81
+    },
+    {
+     "hora": 1,
+     "precioReal": 116.3,
+     "demandaMw": 25162,
+     "solarMw": 17,
+     "eolicaMw": 9578,
+     "precioModelo": 121.81
+    },
+    {
+     "hora": 2,
+     "precioReal": 106.78,
+     "demandaMw": 23952,
+     "solarMw": 17,
+     "eolicaMw": 9694,
+     "precioModelo": 117.57
+    },
+    {
+     "hora": 3,
+     "precioReal": 104.45,
+     "demandaMw": 23444,
+     "solarMw": 10,
+     "eolicaMw": 9890,
+     "precioModelo": 117.57
+    },
+    {
+     "hora": 4,
+     "precioReal": 103.6,
+     "demandaMw": 23355,
+     "solarMw": 7,
+     "eolicaMw": 10100,
+     "precioModelo": 117.57
+    },
+    {
+     "hora": 5,
+     "precioReal": 107.0,
+     "demandaMw": 24062,
+     "solarMw": 14,
+     "eolicaMw": 10425,
+     "precioModelo": 117.57
+    },
+    {
+     "hora": 6,
+     "precioReal": 120.57,
+     "demandaMw": 27156,
+     "solarMw": 0,
+     "eolicaMw": 10669,
+     "precioModelo": 121.81
+    },
+    {
+     "hora": 7,
+     "precioReal": 140.33,
+     "demandaMw": 31814,
+     "solarMw": 22,
+     "eolicaMw": 10860,
+     "precioModelo": 126.38
+    },
+    {
+     "hora": 8,
+     "precioReal": 153.0,
+     "demandaMw": 34467,
+     "solarMw": 156,
+     "eolicaMw": 10958,
+     "precioModelo": 131.32
+    },
+    {
+     "hora": 9,
+     "precioReal": 152.19,
+     "demandaMw": 34782,
+     "solarMw": 1657,
+     "eolicaMw": 10945,
+     "precioModelo": 126.38
+    },
+    {
+     "hora": 10,
+     "precioReal": 144.38,
+     "demandaMw": 34312,
+     "solarMw": 4123,
+     "eolicaMw": 10890,
+     "precioModelo": 126.38
+    },
+    {
+     "hora": 11,
+     "precioReal": 137.0,
+     "demandaMw": 33471,
+     "solarMw": 5733,
+     "eolicaMw": 11064,
+     "precioModelo": 121.81
+    },
+    {
+     "hora": 12,
+     "precioReal": 132.61,
+     "demandaMw": 32949,
+     "solarMw": 6560,
+     "eolicaMw": 11388,
+     "precioModelo": 117.57
+    },
+    {
+     "hora": 13,
+     "precioReal": 127.14,
+     "demandaMw": 32778,
+     "solarMw": 6700,
+     "eolicaMw": 11669,
+     "precioModelo": 117.57
+    },
+    {
+     "hora": 14,
+     "precioReal": 126.99,
+     "demandaMw": 32624,
+     "solarMw": 6423,
+     "eolicaMw": 11850,
+     "precioModelo": 117.57
+    },
+    {
+     "hora": 15,
+     "precioReal": 131.35,
+     "demandaMw": 32212,
+     "solarMw": 5457,
+     "eolicaMw": 11776,
+     "precioModelo": 117.57
+    },
+    {
+     "hora": 16,
+     "precioReal": 139.57,
+     "demandaMw": 32392,
+     "solarMw": 3797,
+     "eolicaMw": 11233,
+     "precioModelo": 121.81
+    },
+    {
+     "hora": 17,
+     "precioReal": 149.03,
+     "demandaMw": 33159,
+     "solarMw": 1224,
+     "eolicaMw": 10785,
+     "precioModelo": 126.38
+    },
+    {
+     "hora": 18,
+     "precioReal": 159.6,
+     "demandaMw": 34998,
+     "solarMw": 83,
+     "eolicaMw": 10234,
+     "precioModelo": 131.32
+    },
+    {
+     "hora": 19,
+     "precioReal": 167.72,
+     "demandaMw": 36392,
+     "solarMw": 18,
+     "eolicaMw": 10028,
+     "precioModelo": 131.32
+    },
+    {
+     "hora": 20,
+     "precioReal": 155.82,
+     "demandaMw": 37174,
+     "solarMw": 24,
+     "eolicaMw": 9736,
+     "precioModelo": 142.48
+    },
+    {
+     "hora": 21,
+     "precioReal": 155.1,
+     "demandaMw": 35778,
+     "solarMw": 38,
+     "eolicaMw": 9485,
+     "precioModelo": 131.32
+    },
+    {
+     "hora": 22,
+     "precioReal": 145.0,
+     "demandaMw": 32259,
+     "solarMw": 52,
+     "eolicaMw": 9016,
+     "precioModelo": 131.32
+    },
+    {
+     "hora": 23,
+     "precioReal": 139.87,
+     "demandaMw": 29016,
+     "solarMw": 51,
+     "eolicaMw": 8454,
+     "precioModelo": 126.38
+    }
+   ]
+  },
+  {
+   "fecha": "2025-05-11",
+   "titulo": "Domingo con precios negativos",
+   "descripcion": "Domingo de mayo con demanda baja y mucha solar: precios negativos de 10:00 a 18:00 y el mínimo del año, -15 €/MWh.",
+   "precioMedioReal": 2.21,
+   "errorModeloRmse": 6.0,
+   "parametros": {
+    "gas": 35,
+    "co2": 70,
+    "nuclear": 4000,
+    "ciclos": 22000,
+    "hidro": 8000,
+    "fHidro": 0.2,
+    "wHidro": 2,
+    "otras": 10000,
+    "export": 0,
+    "bExp": 20,
+    "neg": 1.0,
+    "pmin": -15,
+    "bExp2": -9
+   },
+   "horas": [
+    {
+     "hora": 0,
+     "precioReal": 8.79,
+     "demandaMw": 21677,
+     "solarMw": 172,
+     "eolicaMw": 5158,
+     "precioModelo": 15.04
+    },
+    {
+     "hora": 1,
+     "precioReal": 6.12,
+     "demandaMw": 20351,
+     "solarMw": 226,
+     "eolicaMw": 5036,
+     "precioModelo": 7.52
+    },
+    {
+     "hora": 2,
+     "precioReal": 6.89,
+     "demandaMw": 19306,
+     "solarMw": 168,
+     "eolicaMw": 4855,
+     "precioModelo": 7.52
+    },
+    {
+     "hora": 3,
+     "precioReal": 3.96,
+     "demandaMw": 18754,
+     "solarMw": 142,
+     "eolicaMw": 4733,
+     "precioModelo": 5.0
+    },
+    {
+     "hora": 4,
+     "precioReal": 3.6,
+     "demandaMw": 18518,
+     "solarMw": 114,
+     "eolicaMw": 4710,
+     "precioModelo": 5.0
+    },
+    {
+     "hora": 5,
+     "precioReal": 4.0,
+     "demandaMw": 18472,
+     "solarMw": 103,
+     "eolicaMw": 4738,
+     "precioModelo": 5.0
+    },
+    {
+     "hora": 6,
+     "precioReal": 6.0,
+     "demandaMw": 18856,
+     "solarMw": 76,
+     "eolicaMw": 4767,
+     "precioModelo": 7.52
+    },
+    {
+     "hora": 7,
+     "precioReal": 5.88,
+     "demandaMw": 18834,
+     "solarMw": 1163,
+     "eolicaMw": 4519,
+     "precioModelo": 5.0
+    },
+    {
+     "hora": 8,
+     "precioReal": 1.03,
+     "demandaMw": 19457,
+     "solarMw": 6476,
+     "eolicaMw": 4547,
+     "precioModelo": 5.0
+    },
+    {
+     "hora": 9,
+     "precioReal": -0.62,
+     "demandaMw": 20449,
+     "solarMw": 12245,
+     "eolicaMw": 4991,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 10,
+     "precioReal": -12.0,
+     "demandaMw": 21124,
+     "solarMw": 15478,
+     "eolicaMw": 5714,
+     "precioModelo": -3.0
+    },
+    {
+     "hora": 11,
+     "precioReal": -12.0,
+     "demandaMw": 21000,
+     "solarMw": 16556,
+     "eolicaMw": 6108,
+     "precioModelo": -3.0
+    },
+    {
+     "hora": 12,
+     "precioReal": -10.01,
+     "demandaMw": 20880,
+     "solarMw": 17055,
+     "eolicaMw": 6397,
+     "precioModelo": -3.0
+    },
+    {
+     "hora": 13,
+     "precioReal": -12.0,
+     "demandaMw": 21089,
+     "solarMw": 16733,
+     "eolicaMw": 6553,
+     "precioModelo": -3.0
+    },
+    {
+     "hora": 14,
+     "precioReal": -12.0,
+     "demandaMw": 20958,
+     "solarMw": 16435,
+     "eolicaMw": 6297,
+     "precioModelo": -3.0
+    },
+    {
+     "hora": 15,
+     "precioReal": -14.0,
+     "demandaMw": 19860,
+     "solarMw": 15911,
+     "eolicaMw": 6520,
+     "precioModelo": -3.0
+    },
+    {
+     "hora": 16,
+     "precioReal": -15.0,
+     "demandaMw": 19508,
+     "solarMw": 15171,
+     "eolicaMw": 6724,
+     "precioModelo": -3.0
+    },
+    {
+     "hora": 17,
+     "precioReal": -7.5,
+     "demandaMw": 19881,
+     "solarMw": 14172,
+     "eolicaMw": 6551,
+     "precioModelo": -3.0
+    },
+    {
+     "hora": 18,
+     "precioReal": -3.0,
+     "demandaMw": 20918,
+     "solarMw": 12977,
+     "eolicaMw": 5977,
+     "precioModelo": 0.0
+    },
+    {
+     "hora": 19,
+     "precioReal": 0.0,
+     "demandaMw": 22282,
+     "solarMw": 9396,
+     "eolicaMw": 5609,
+     "precioModelo": 5.0
+    },
+    {
+     "hora": 20,
+     "precioReal": 4.5,
+     "demandaMw": 23954,
+     "solarMw": 3744,
+     "eolicaMw": 5168,
+     "precioModelo": 7.52
+    },
+    {
+     "hora": 21,
+     "precioReal": 35.01,
+     "demandaMw": 26012,
+     "solarMw": 632,
+     "eolicaMw": 4810,
+     "precioModelo": 30.08
+    },
+    {
+     "hora": 22,
+     "precioReal": 35.01,
+     "demandaMw": 25403,
+     "solarMw": 467,
+     "eolicaMw": 4582,
+     "precioModelo": 30.08
+    },
+    {
+     "hora": 23,
+     "precioReal": 30.28,
+     "demandaMw": 23214,
+     "solarMw": 346,
+     "eolicaMw": 4362,
+     "precioModelo": 22.56
+    }
+   ]
+  },
+  {
+   "fecha": "2025-06-16",
+   "titulo": "Curva de pato",
+   "descripcion": "Lunes de junio: casi 0 € al mediodía y 210 €/MWh a las 21:00, cuando se pone el sol y hay que arrancar ciclos y turbinar agua.",
+   "precioMedioReal": 52.36,
+   "errorModeloRmse": 30.0,
+   "parametros": {
+    "gas": 38,
+    "co2": 73,
+    "nuclear": 6000,
+    "ciclos": 22000,
+    "hidro": 6000,
+    "fHidro": 0.5,
+    "wHidro": 2,
+    "otras": 6000,
+    "export": 1000,
+    "bExp": 40,
+    "neg": 0.0
+   },
+   "horas": [
+    {
+     "hora": 0,
+     "precioReal": 32.74,
+     "demandaMw": 25010,
+     "solarMw": 446,
+     "eolicaMw": 11149,
+     "precioModelo": 40
+    },
+    {
+     "hora": 1,
+     "precioReal": 19.96,
+     "demandaMw": 23495,
+     "solarMw": 328,
+     "eolicaMw": 10732,
+     "precioModelo": 20.14
+    },
+    {
+     "hora": 2,
+     "precioReal": 16.58,
+     "demandaMw": 22528,
+     "solarMw": 288,
+     "eolicaMw": 10243,
+     "precioModelo": 20.14
+    },
+    {
+     "hora": 3,
+     "precioReal": 13.27,
+     "demandaMw": 22074,
+     "solarMw": 258,
+     "eolicaMw": 9664,
+     "precioModelo": 20.14
+    },
+    {
+     "hora": 4,
+     "precioReal": 15.0,
+     "demandaMw": 21991,
+     "solarMw": 240,
+     "eolicaMw": 9078,
+     "precioModelo": 20.14
+    },
+    {
+     "hora": 5,
+     "precioReal": 24.76,
+     "demandaMw": 22681,
+     "solarMw": 198,
+     "eolicaMw": 8424,
+     "precioModelo": 40.27
+    },
+    {
+     "hora": 6,
+     "precioReal": 60.0,
+     "demandaMw": 25193,
+     "solarMw": 185,
+     "eolicaMw": 7586,
+     "precioModelo": 80.54
+    },
+    {
+     "hora": 7,
+     "precioReal": 71.6,
+     "demandaMw": 27839,
+     "solarMw": 2028,
+     "eolicaMw": 6535,
+     "precioModelo": 93.94
+    },
+    {
+     "hora": 8,
+     "precioReal": 58.49,
+     "demandaMw": 29563,
+     "solarMw": 7972,
+     "eolicaMw": 5358,
+     "precioModelo": 60.41
+    },
+    {
+     "hora": 9,
+     "precioReal": 20.0,
+     "demandaMw": 30448,
+     "solarMw": 13756,
+     "eolicaMw": 4423,
+     "precioModelo": 20.14
+    },
+    {
+     "hora": 10,
+     "precioReal": 4.5,
+     "demandaMw": 30860,
+     "solarMw": 16603,
+     "eolicaMw": 3827,
+     "precioModelo": 5.0
+    },
+    {
+     "hora": 11,
+     "precioReal": 1.0,
+     "demandaMw": 30932,
+     "solarMw": 17938,
+     "eolicaMw": 3518,
+     "precioModelo": 5.0
+    },
+    {
+     "hora": 12,
+     "precioReal": 0.65,
+     "demandaMw": 31314,
+     "solarMw": 18473,
+     "eolicaMw": 3405,
+     "precioModelo": 5.0
+    },
+    {
+     "hora": 13,
+     "precioReal": 0.85,
+     "demandaMw": 31967,
+     "solarMw": 18331,
+     "eolicaMw": 3322,
+     "precioModelo": 5.0
+    },
+    {
+     "hora": 14,
+     "precioReal": 1.72,
+     "demandaMw": 31935,
+     "solarMw": 18022,
+     "eolicaMw": 3322,
+     "precioModelo": 5.0
+    },
+    {
+     "hora": 15,
+     "precioReal": 3.52,
+     "demandaMw": 31596,
+     "solarMw": 17242,
+     "eolicaMw": 3586,
+     "precioModelo": 5.0
+    },
+    {
+     "hora": 16,
+     "precioReal": 17.73,
+     "demandaMw": 31854,
+     "solarMw": 16225,
+     "eolicaMw": 3770,
+     "precioModelo": 20.14
+    },
+    {
+     "hora": 17,
+     "precioReal": 47.69,
+     "demandaMw": 32550,
+     "solarMw": 14772,
+     "eolicaMw": 3926,
+     "precioModelo": 40.27
+    },
+    {
+     "hora": 18,
+     "precioReal": 101.64,
+     "demandaMw": 32862,
+     "solarMw": 12670,
+     "eolicaMw": 4618,
+     "precioModelo": 60.41
+    },
+    {
+     "hora": 19,
+     "precioReal": 117.2,
+     "demandaMw": 33448,
+     "solarMw": 9277,
+     "eolicaMw": 5253,
+     "precioModelo": 93.94
+    },
+    {
+     "hora": 20,
+     "precioReal": 125.41,
+     "demandaMw": 33400,
+     "solarMw": 4376,
+     "eolicaMw": 5579,
+     "precioModelo": 97.19
+    },
+    {
+     "hora": 21,
+     "precioReal": 210.0,
+     "demandaMw": 33012,
+     "solarMw": 959,
+     "eolicaMw": 5808,
+     "precioModelo": 100.68
+    },
+    {
+     "hora": 22,
+     "precioReal": 166.91,
+     "demandaMw": 31518,
+     "solarMw": 317,
+     "eolicaMw": 5868,
+     "precioModelo": 97.19
+    },
+    {
+     "hora": 23,
+     "precioReal": 125.41,
+     "demandaMw": 28731,
+     "solarMw": 221,
+     "eolicaMw": 5759,
+     "precioModelo": 97.19
+    }
+   ]
+  }
+ ]
+}
